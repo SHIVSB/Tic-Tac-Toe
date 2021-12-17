@@ -2,13 +2,18 @@ let turn = true; // True is for player 1
 
 let boardCells = Array.from(document.getElementsByClassName("cell"));
 let board = document.getElementById("board");
+let winStatus =false;
 
 boardCells.forEach(function (cell){
     cell.addEventListener("click",cellClick)
 });
 
 function cellClick(event){
+    if(winStatus){
+        return;
+    }
     let currentCell = event.target;
+
     if(turn){
         //player 1
         currentCell.classList.add("x"); // Adding class
@@ -22,6 +27,7 @@ function cellClick(event){
 }
 
 function setNextPlayerHint(){
+
     board.classList.remove("x");//If there is a class x, remove it
     board.classList.remove("circle");//If there is a class circle, remove it
     if(turn){
@@ -44,20 +50,28 @@ function gameStatus(){
     let r33 = boardCells[8].classList[1];
 
     if(r11 && r11 === r12 && r11 === r13) {
+        winStatus = true;
         return announceWinner();
     }else if(r21 && r21 === r22 && r21 === r23) {
+        winStatus = true;
         return announceWinner();
     }else if(r31 && r31 === r32 && r31 === r33) {
+        winStatus = true;
         return announceWinner();
     }else if(r11 && r11 === r21 && r11 === r31) {
+        winStatus = true;
         return announceWinner();
     }else if(r12 && r12 === r22 && r12 === r32) {
+        winStatus = true;
         return announceWinner();
     }else if(r13 && r13 === r23 && r13 === r33) {
+        winStatus = true;
         return announceWinner();
     }else if(r11 && r11 === r22 && r11 === r33) {
+        winStatus = true;
         return announceWinner();
     }else if(r13 && r13 === r22 && r13 === r31) {
+        winStatus = true;
         return announceWinner();
     }else{
         checkDraw();
